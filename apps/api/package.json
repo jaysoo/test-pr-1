@@ -1,0 +1,95 @@
+{
+  "name": "@test-nx-pr-32120/api",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "apps/api/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "apps/api/src/main.ts",
+          "tsConfig": "apps/api/tsconfig.app.json",
+          "assets": [
+            "apps/api/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "generateLockfile": true,
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "prune-lockfile": {
+        "cache": true,
+        "executor": "@nx/js:prune-lockfile",
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "copy-workspace-modules": {
+        "cache": true,
+        "executor": "@nx/js:copy-workspace-modules",
+        "options": {
+          "buildTarget": "build"
+        }
+      },
+      "prune": {
+        "cache": true,
+        "dependsOn": [
+          "prune-lockfile",
+          "copy-workspace-modules"
+        ],
+        "executor": "nx:noop"
+      },
+      "serve": {
+        "continuous": true,
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@test-nx-pr-32120/api:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@test-nx-pr-32120/api:build:development"
+          },
+          "production": {
+            "buildTarget": "@test-nx-pr-32120/api:build:production"
+          }
+        }
+      },
+      "docker:build": {
+        "dependsOn": [
+          "build",
+          "prune"
+        ]
+      }
+    }
+  }
+}
