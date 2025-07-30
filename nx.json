@@ -52,5 +52,23 @@
         "^production"
       ]
     }
+  },
+  "release": {
+    "releaseTagPattern": {
+      "pattern": "release/{projectName}/{version}"
+    },
+    "groups": {
+      "apps": {
+        "projects": ["api"],
+        "projectsRelationship": "independent",
+        "docker": {
+          "registryUrl": "docker.io",
+          "skipVersionActions": true
+        },
+        "changelog": {
+          "projectChangelogs": true
+        }
+      }
+    }
   }
 }
