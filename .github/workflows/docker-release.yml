@@ -46,7 +46,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          nx release --dockerVersionScheme=${{ steps.version.outputs.scheme }} --yes
+          npx nx release --dockerVersionScheme=${{ steps.version.outputs.scheme }} --yes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
