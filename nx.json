@@ -60,10 +60,6 @@
         "projects": ["api"],
         "projectsRelationship": "independent",
         "docker": {
-          "versionSchemes": {
-            "production": "{currentDate|YYMM.DD}.{shortCommitSha}",
-            "staging": "{currentDate|YYMM.DD}-staging"
-          },
           "registryUrl": "docker.io",
           "skipVersionActions": true
         },
