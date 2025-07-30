@@ -1,3 +1,7 @@
+# 2507.30.87115ff (2025-07-30)
+
+This was a version bump only for @test-nx-pr-32120/api to align it with other projects, there were no code changes.
+
 # 2507.30.0884684 (2025-07-30)
 
 This was a version bump only for @test-nx-pr-32120/api to align it with other projects, there were no code changes.
